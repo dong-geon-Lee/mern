@@ -1,12 +1,14 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
+const cors = require("cors");
 
 dotenv.config();
 
 const app = express();
 const port = 5000;
 
+app.use(cors());
 app.use(express.json());
 app.use("/snippet", require("./routers/snippetRouter"));
 
