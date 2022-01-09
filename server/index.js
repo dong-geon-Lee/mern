@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const cors = require("cors");
+const cookieParser = require("cookie-parser");
 
 dotenv.config();
 
@@ -10,7 +11,10 @@ const port = 5000;
 
 app.use(cors());
 app.use(express.json());
+app.use(cookieParser());
+
 app.use("/snippet", require("./routers/snippetRouter"));
+app.use("/auth", require("./routers/userRouter"));
 
 app.listen(port, () => console.log(`Server started on port ${port}`));
 
