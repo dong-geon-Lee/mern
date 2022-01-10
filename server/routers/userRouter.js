@@ -105,4 +105,28 @@ router.post("/login", async (req, res) => {
   }
 });
 
+router.get("/loggedIn", (req, res) => {
+  try {
+    const token = req.cookies.token;
+
+    if (!token) {
+      return res.json(null);
+    }
+
+    const validateUser = jwt.verify(token, process.env.JWT_SECRET);
+
+    res.json(validateUser.id);
+  } catch (err) {
+    return res.json(null);
+  }
+});
+
+router.get("/logout", (req, res) => {
+  try {
+    res.clearCookie("token").send();
+  } catch (err) {
+    return res.json(null);
+  }
+});
+
 module.exports = router;
